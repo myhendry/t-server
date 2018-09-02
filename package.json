@@ -1,0 +1,39 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec ts-node src/index.ts",
+    "postinstall": "npm run build"
+  },
+  "engines": {
+    "node": "8.2.1",
+    "npm": "6.1.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^4.0.3",
+    "@types/mongoose": "^5.2.6",
+    "@types/morgan": "^1.7.35",
+    "@types/yup": "^0.24.9",
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.18.3",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.14.0",
+    "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.0.3",
+    "axios": "^0.18.0",
+    "core-js": "^2.5.7",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "graphql": "^0.13.2",
+    "mongoose": "^5.2.9",
+    "morgan": "^1.9.0",
+    "yup": "^0.26.2"
+  }
+}
