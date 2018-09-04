@@ -1,8 +1,9 @@
 import * as Yup from "yup";
 
 import { PROVIDER_ENUM } from "./customer.model";
+import { AuthServices } from "./../../services/Auth";
 import { AuthProvider } from "../../services/authProvider";
-import { getOrCreateCustomer } from "./customer";
+import { getOrCreateCustomer, me } from "./customer";
 
 export const create = async (req: any, res: any) => {
   const { token, provider } = req.body;
@@ -28,8 +29,25 @@ export const create = async (req: any, res: any) => {
     }
 
     const customer = await getOrCreateCustomer(data, provider);
+    // res.status(200).json(customer);
 
-    res.status(200).json(customer);
+    const jwtToken = AuthServices.createToken(customer);
+    res.status(200).json({ token: jwtToken });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const getUserInfo = async (req: any, res: any) => {
+  try {
+    if (req.user) {
+      // console.log("req user ", req.user);
+      const userInfo = await me(req.user._id);
+
+      res.status(200).json(userInfo);
+    } else {
+      res.status(400).json({ message: "No User Found" });
+    }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
