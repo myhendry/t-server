@@ -1,29 +1,14 @@
 import express from "express";
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import dotenv from "dotenv";
 dotenv.config();
 dotenv.load();
 
 import middlewaresConfig from "./config/middlewares";
 import { CustomerRoutes, TestRoutes } from "./modules";
-
+import { typeDefs } from "./graphql/schema";
+import { resolvers } from "./graphql/resolvers";
 import "./config/db";
-
-// Construct a schema, using GraphQL schema language
-const typeDefs = gql`
-  type Query {
-    hello: String
-    hey: String
-  }
-`;
-
-// Provide resolver functions for your schema fields
-const resolvers = {
-  Query: {
-    hello: () => "Hello world!",
-    hey: () => "Hey there!"
-  }
-};
 
 // Initiate Apollo Server
 const server = new ApolloServer({ typeDefs, resolvers });
